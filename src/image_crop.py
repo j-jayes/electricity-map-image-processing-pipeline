@@ -1,37 +1,35 @@
 import cv2
 import numpy as np
 
-# Specify the image file
-image_file = "Goteborgs och Bohus.pdf_page_15.jpg"
+# Specify the file name base and page numbers
+file_base = "Goteborgs och Bohus.pdf_page_"
+pages = [15, 16, 17, 18, 19, 20]
 
-# Load the image
-img = cv2.imread(f'data/intermediate/images/{image_file}')
+for page in pages:
+    # Form the image file name
+    image_file = file_base + str(page) + ".jpg"
 
-# Convert the image to grayscale
-gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+    # Load the image
+    img = cv2.imread(f'data/intermediate/images/{image_file}')
 
-# Apply smoothing to reduce noise and bleed-through
-smoothed = cv2.GaussianBlur(gray, (5, 5), 0)
+    # Crop 50 pixels off of each edge
+    img = img[50:-50, 50:-50]
 
-# Initialize Selective Search
-ss = cv2.ximgproc.segmentation.createSelectiveSearchSegmentation()
-ss.setBaseImage(smoothed)
+    # Convert the image to grayscale
+    gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 
-# Switch to fast but less accurate mode
-ss.switchToSelectiveSearchFast()
+    # Apply a binary threshold to the image
+    _, threshold = cv2.threshold(gray, 200, 255, cv2.THRESH_BINARY_INV)
 
-# Run selective search to get proposed regions
-rects = ss.process()
+    # Find the contours in the threshold image
+    contours, _ = cv2.findContours(threshold, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
 
-# Iterate over a range of minimum region sizes
-for min_size in range(10000, 100000, 10000):  # Adjust the range and step size as needed
-    # Filter rects to keep only the ones with sizable area, and sort them by size (largest first)
-    filtered_rects = [rect for rect in rects if rect[2]*rect[3] > min_size]
-    filtered_rects.sort(key=lambda x: x[2]*x[3], reverse=True)
+    # Sort the contours by area in descending order and keep the largest one
+    contours = sorted(contours, key=cv2.contourArea, reverse=True)[:1]
 
-    # Use the largest region to crop the image
-    x, y, w, h = filtered_rects[0]
+    # Find the bounding rectangle of the largest contour then use it to crop the image
+    x, y, w, h = cv2.boundingRect(contours[0])
     table = img[y:y+h, x:x+w]
 
-    # Save the cropped image with the min_size value in the filename
-    cv2.imwrite(f'data/intermediate/cropped_images/{image_file}_min_size_{min_size}.jpg', table)
+    # Save the cropped image
+    cv2.imwrite(f'data/intermediate/cropped_images/{image_file}', table)
