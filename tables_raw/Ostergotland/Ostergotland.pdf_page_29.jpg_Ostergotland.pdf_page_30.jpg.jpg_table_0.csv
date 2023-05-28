@@ -1,0 +1,42 @@
+1,2,3,4,5,6,7,8,9,10,1 11,1
+50,Vångaortens El. Distr .- Fören. .,,( Vånga,V,30.6,100,3-fas,50,10000/380,,150
+,,Vånga,Ab. från A .- B. Knutsbro kraftstation,-,-,-,,,40000/10000,,
+51,Doverstorps El. Distr .- Fören. ...,Risinge,,,:unselected:,:unselected:,,,40000/500/190,,51
+52,Kullerstads El. Distr .- Fören.,Kullerstad,Skärblacka A .- B.,,:unselected:,,,,15000/3000/380,,52
+53,Distr. i Skärblacka,,,-,,-,,,3000/220,,53
+54,Skärblacka A .- B.,Norrköping,,-,"-
+:unselected:",,,2,15000/3000,,54
+,Transformatorstationen i Norr- köping,,,,,,,,,,
+55,Kvarn A .- B. J. G. Swartz,Dagsberg,JAb. från Skärblacka A .- B. Dagsberg,a,,- 215/ 1,,,15000/500,,55
+56,"Vikbolandets El. Kraft A .- B., Kuddbynätet",Kuddby,,,,,,,,,56
+57,"Vikbolandets El. Kraft A .- B., Jonsbergsnätet",Jonsberg,,,,,,,,,57
+58,"Vikbolandets El. Kraft A .- B., Furingstadsnätet",Furingstad,,,,,,,,,58
+59,"Vikbolandets El. Kraft A .- B., Ö. Stenbynätet",Östra Stenby,Ab. från Motala Kraftverk,-,-,-,,»,40000/3000/220,,59
+60,"Vikbolandets El. Kraft A .- B., Veckelstadsnätet",Östra Husby,,,,,,,,,60
+61,"Vikbolandets El. Kraft A .- B., Lönsåsnätet",Östra Ny,,,,,,,,,61
+62,St. Långbans Gruv A .- B.,Skällvik,» Norrköpings stad,,-,,,,20000/380,,62
+63,C.J. Lundbergs Läderfabriks A .- B.,Valdemarsvik,» Motala Kraftverk ...,-,,,»,,40000/380,,63
+64 a,Gusums Bruks o. Fabriks A .- B.,Ringarum,Mellanbruket,,26,51,I,,220,,64 a
+,,,| Ursäter ......,:,4,140,3-fas,50,3000/220,,
+64 b,Gusums Bruks o. Fabriks A .- B,,Ab. från Motala Kraftverk,,-,-,,,40000/3000,,164 b
+65 a,Belysnings A .- B. Tomten,Skönberga.,Narebo,,6,240,,,10000/220 samt 380 och 190,,65 a
+65 b,,Söderköping,Söderköping,,-,75,,,10000/220,,65 b
+65 c,,Drothem,JAb. från Motala Kraftverk Nybble,,20,- 100,1,,40000/10000,,65 c
+66,Distr. i Karvetorp,S:t Johannes,Ab. från Norrköpings stad,,,-,,,20000/3000/380,,66
+67,"H. Jonsson o. abonnenter, bl. a. O. Ryds El. Distr .- Fören.",Östra Ryd,Bubbetorp,V,,25,,,3000/380,,67
+68 a,Baroniet Adelswärd,Atvid,Åtvidaberg,,1000000,420,,,20000/7000/500 o. 220,,68 a
+68 b,,,Adelsnäs .,,,80,,,7000/500,,68 b
+68 c,,,Kvarntorp,,,150,,,7000/380,,68 c
+69,Norsholmstraktens El. Distr .- Fören.,"JKimstad, Skärkind, 1 Gårdeby",lAb. från Baroniet Adelswärd,-,-,-,,,20000/3000/220,,69
+70,Bankekinds El. Distr .- Fören ..,Bankekind,,-,,-,,,20000/3000/220,,70
+71,A .- B. Knutsbro Kraftstation,Vist,Hovetorp,v,12.5,1 800,,,40000/3000/220,,71
+72,Th. G. Bielke.,,Sturefors,,,130,2,,3000/380,,72
+73,A .- B. Nykvarns Bindgarnsfabrik,Linköping,Nykvarn,,2.5,215,2,,380,,73
+74 a,Linköpings El. Kraft o. Bel.A .- B.,,Tannefors,,3,170,,,3000 och 10000,,74 a
+,,,,d,,325,,,500 och 10000,,
+74 b,2 »,,Linköping,å,,1 750,,,3000 och 10000,,"$74 b
+-"
+74c,,Ledberg,Odensfors,v,12,2 600,,2,10000,,74 c
+74 d,2,,Svartåfors,,13,2 150,,,10000,,74 d
+74 e,,Vreta kloster,Nykvarn,»,4,1 090,,,10000,,74 e
+75,Skeda-Slaka El. Distr .- Fören ..,Skeda och Slaka,Ab. fr. Linköpings El. Kraft o. Bel. A .- B.,,,-,,,10000/380,,75

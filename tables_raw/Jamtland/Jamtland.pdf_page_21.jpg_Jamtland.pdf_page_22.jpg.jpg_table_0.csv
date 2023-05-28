@@ -1,0 +1,41 @@
+Nr,"Företagets namn, ägare eller innehavare","Kommun, stad",Kraftstationens namn eller läge,Driv- kraft,Utbyggd fallhöjd m,Generator- effekt kVA,Ortstransf.,,Strömart,Pe- riod- a pr/ sek.,Spännings- system volt,Anslutning,,,,Bygg- nadsår,Anm. (Siffrorna avse kolumnen),Nr
+,,,,,,,An- tal st.,S:a effekt kVA,,,,Bel. kW,Moto- rer kW,Div. app. kW,Sum- ma kW,,,
+1,2,3,1 4,5,6,7,S,9,10,11,12,13,14,15,16,17,18,1
+,Ragunda El. A .- B.,"Ragunda, Håsjö o. Borgvattnet",Högforsen,V,33,350,-,-,3-f,50,12000/190,-,-,-,-,"1915, 1919",,1
+2,Brofors El. Ljus,Ragunda,,,-,15,-,,,50,3000/190,-,-,-,,-,Har enl. uppg. uppgått,2
+,Fören. Näsets El. Ljus,,Näsets kraftst.,,,c:a 20,,-,,50,2000/190,,-,,,1917,i Ragunda El. A .- B.,3
+,"Bispgården, Wilh. Berglund",Fors,Bispfors,»,19-20,> 50,,-,,50,3000/190,,,,,1910-11,,
+,Stadsforsens A .- B.,,Stadsforsen,,10,» 250,,-,,50,-,-,,-,,1917-,Samarbetar med föreg.,5
+6,Statens Vattenfallsverk,Fors,Stadsf:s prov. kraftst.,A,7.4,600,23,363,3-f,50,6000/380,105,790,200,1 095,1920,,6
+,Lidensboda El. Distr .- För.,,Ab. fr. föregående,,,-,8,55,,50,6000/380,15,80,5,100,1920,,7
+8,Hällesjö El. Fören.,Hällesjö,,v,,75,4,,,50,6000/380,24-5,17,6,47.5,1918,,8
+9,Kälarne El. Såg & Kvarn A .- B.,Håsjö,Kälarne,,2-2.7,52,-,,L,-,2 × 220,8.5,22,,30.5,"1908, 1911",,9
+10,Gastsjö El. Fören.,Hällesjö,Gastsjön,»,-,20,,-,3-f,50,6000/380,-,,,,-,,10
+11,Alanäsets El. Distr .- fören.,Hällesjö,Albacken,V,-,-,,,L,,-,-,-,-,,,,11
+12,Sörbygdens El. And .- För.,,Kvarnån,,,40,-,,3-f,50,6000/220,,,,-,,,12
+13,Ljungå El .- verk ..,,Ljungå gård,,,,-,,L,-,220,,,,,,,13
+14,Lövuddens El. Kraft A .- B. ..,Håsjö,Kvarnån,,,,8,,3-f,50,5000/380,16,110,,126,,,14
+15,Morta Kvarn och Kraft A .- B.,Stugum och Borgvattnet,Mörtån,,,,,,,50,12000/190,-,-,,-,1917,,15
+16,"C. J. Olsson, Fisksjölandet ...",Stugum,Fisksjön,V,,10,,,L,,220,-,-,,-,1919,,16
+17,"A .- B. Nya Carbo med abonnent
+A .- B. Electric, Fören. Elektro
+m. fl.","Revsund, Sund-
+sjö och Bräcke",Gimån,,4,333,24,,3-f,50,6000/380 o. 220,94,606,,700,"1905, 1910",,17
+18,HerrevadsstrommensKraftA .- B.,Revsund och Bodsjö,Herrevadsströmmen,,-,50,7,-,,50,10000/190,17,100,-,117,1914,,18
+19,Ammeröns El. Fören.,"Revsund, Bräcke och Lockne",Grönviken,,,60,10,-,,50,6000/220,15,60,-,75,1920,,19
+20,E. A. Eriksson,Revsund,Svedjefors,,-,20,-,-,L,-,2 × 220,,11,-,16.5,-,,20
+21,Brattfallsåns Kraft A .- B.,Sundsjö,Risna,V,23,c:a 100,23,-,3-f,50,6000/220,34,120,8,162,1920,,21
+22,Våle-Finnas El. Fören.,Bodsjö,Vale,,-,20,2,,,58,6000/220,9.5,18,,27.5,1919,,22
+23,Hunge El. Fören.,,Hunge,,,92,,,,50,10000/220,,,,,,,23
+24|,Sidsjö El. Fören.,,Sidsjö,,-,6,-,,L,-,220,,,,,,,
+25,Ramsjö Vattenkraftfören.,Nyhem,Dockmyr,,38,c:a 75,,-,3-f,50,6000 220,,,,-,1919,,
+26,Gimdalens El. Fören.,Nyhem,Hovdeån,v,-,30,,-,3-f,50,6000/190,-,,,,,,26
+27,C. Alenius,,Ulvsjönäs,,,30,,,,50,190,,,,,,,27
+28,Nyhems Kraft & Industri A .- B.,,Nyhem,"""",,18,-,,L,-,2 × 220,7.5,11,,18.5,,,28
+29,A .- B. Gusta Stenförädlingsverk,Brunflo,Ab. fr. Hissmofors A .- B.,,,-,,,3-f,60,10000/380,,,,,1917,,29
+30,Vålbackens Tegelbruks A .- B ...,,,,,-,3,-,,60,10000/380,,175,,225,1917,,30
+31,Distributionsföretag,Brunflo,Ab. fr. Hackås-Näs El. A .- B.,-,-,-,,-,3-f,50,10000/380,-,-,-,-,1917,Har förut erh. kraft fr. Gusta Stenförädl.,31
+32,Marieby El. Fören.,Marieby,Ab. fr. Hissmofors A .- B.,-,-,-,-,--,,60,10000/380,,-,,-,-,,32
+33,Lockne Nya Sågv. A .- B,Lockne,Lockne station,,-,6,,,,-,110,,-,,-,,,33
+34|,Lockne El. Fören ..,,Ab. fr. Hackås-Näs El.,,,-,-,,3-f,50,10000/,,-,,,-,,34
+,,,A .- B.,,,,,,,,,,,,,,,

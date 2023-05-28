@@ -1,0 +1,30 @@
+1,2,3,4,5,6,| 7,8,1 9,10 T,11
+Anläggningens nr å kartan,Socken eller lands- kommun (stad),Anläggningens namn,Ägare,Energien erhålles:,,,,,,
+,,,,1. Från egen kraftstation av följande typ och storlek 2. Medelst abonnement från nedanstående företag,,,,,,
+,,,,Kraftmaskiner,,Utbyggd fallhöjd m,Generatorer,,,
+,,,,System,Samman- lagd eff. hkr,,Strömart och periodtal,Spänning volt,Samman- lagd eff. kVA,"energi kWh
+Alstrad"
+1,Kyrkhult,Hemsjö Övre kraftstation,Sydsvenska kraft A .- B.,Vatten- turbin,4 570,14.5-15.2,Trefas 50,3 800,3 600,12 438 0
+2,,Hemsjö Nedre kraftstation,2,,2 450,11.5,,6 400,1 700,9 222 0
+3,,Hemsjö lokal- distribution,,-,,-,-,-,,
+4,Karlsh:ns stad,Karlshamns Angcentral,2,Ång- turbin,4 000,-,Trefas 50,6 400,2 500,5 294 0
+5,,Karlshamns sekundärsta- tionsområde exkl. Karls- hamns stad och Hoby kraft A .- B. 6,,:unselected:,:unselected:,"-
+:unselected:",:unselected:,-,-,
+6 7,Sölves- borgs stad Ronneby landsförs.,Sölvesborgs sekundärsta- tionsområde 7 Djupafors kraftstation,,- Vatten- turbin,- 600,- 11-10,Trefas 50,- 6 600,- 450,381 (
+8,,Brantafors kraftstation,,,200,7,,3 300,125,162 (
+9 10,,Värperyds kraftstation Djupafors sekundärsta- tionsområde 8,,,1 240 -,9 -,-,6 600 -,c:a 1 000,
+11,Karlsh:ns stad,Stadens elek- tricitetsverk,Karlshamns stad,"Om- formare Ang- maskin i reserv
+Mottager","300 320
+energi","-
+från Karlshamns",Likström,"2 × 110
+sekundärstation","170
+179","(se kol.
+15 0"
+12,Ronneby stad,Stadens elek- tricitetsverk,Ronneby stad,"Om- formare Diesel- motor för toppbe-
+Mottager","200 120
+energi","- - |
+från Djupafors",Likstrom,"2 x 220
+sekundärstation","110
+120","(se kol.
+14"
+,,,,lastning o. reserv,,,,,,

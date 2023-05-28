@@ -1,0 +1,37 @@
+Drivkraft,Ut- byggd fallhöjd,Gene- rator- effekt,Strömart,Period- tal,Spänningssystem,Anmärkningar,Före- tagets nr å kartan
+,m,kVA,,pr/sek.,volt,,
+5,6,7,8,9,10,11,12
+-,:unselected:,,Trefas,50,20000/6000/220,,1
+"-
+:unselected:",,,,,20000/6000/380,,2
+-,-,,,»,20000/6000/220,,3
+Vatten,,5,Likström,,220,,4
+,,25,,,220,,5
+,:unselected:,5,,-,220,,6
+,,10,,,220,,7
+-,,-,Trefas,50,20000/6000/380,,
+:unselected:,:unselected:,,,,20000/3000/220,,9
+Vatten,4'5,370,,,2100/220,,10
+2,,17,2,R,,,
+2,3.3,175,Trefas Enfas,50 42,2000/,Endast industri.,11
+,4,360,Trefas,50,6300,,12
+"(vatten, gas ånga och diesel",-,136 836,»,,-,Endast industriell drift.,13
+Vatten,,30,Likström,-,,,14
+,,25,,,-,,15
+,,30,,,-,,16
+-,5.5 | -,225,Trefas,50,3300/500,fIndustriell drift och ) distr. i samhället.,17
+Vatten,10,835,,,5000/380 o. 220,,
+Diesel,,480,Likström,,550 o. 2 × 220,,18
+,,-,Trefas,50,20000/5000/3800.220,,
+Ånga,,1 000,,» -,525,Endast industriell drift.,19
+Vatten,3.8,75,Trefas,50,3000/220,,20
+,5,75,2,,7000/220,,21
+,,800,,,,Samarbetar med nr 124.,22
+Ånga,,130,Likström,,330 o. 220,Endast industriell drift.,23 24
+Vatten,7,220,Trefas,50,10000 o. 6000/380,,25
+,5,125,,,6000/380 o. 190,,26
+,6,35,,,,,27
+,-,-,,,6000/380,,
+Vatten,6,130,,,4000/380,,28
+,-,2,Likström,-,110,,29
+,-,20,,,2 × 220,,30
