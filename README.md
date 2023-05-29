@@ -54,3 +54,15 @@ project_root/
           |--- output/
                 |--- stitched_images/
 
+
+### What do we care about in the tables?
+
+1. Name of power station
+2. Location of power station
+3. Source of power.
+4. Amount of power generated (kVA)
+
+1. name
+2. location
+3. source
+4. amount
