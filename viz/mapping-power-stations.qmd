@@ -1,0 +1,339 @@
+---
+title: "Mapping attempts"
+format: html
+---
+
+
+```{r}
+# Load necessary libraries
+library(tidyverse)
+library(sf)
+library(histmaps)
+library(here)
+
+df <- readxl::read_excel((here("data", "intermediate", "single_table", "combined_data_manual_edits_source_amount.xlsx")))
+```
+
+First map shows the locations of the different power plants
+
+```{r}
+
+df %>%
+  ggplot(aes(x = longitude, y = latitude, color = source_final)) +
+  geom_point() +
+  theme_bw() +
+  theme(legend.position = "right") +
+  facet_wrap(~source_final) +
+  coord_map() +
+  labs(title = "Map of the data that we have created",
+       subtitle = "The data is based on the data that we have created",
+       caption = "Source:")
+
+```
+
+Now we want to get the county boundaries from the histmaps package
+We calculate the number of power stations of each type by county
+
+```{r}
+
+map_county <- get_boundaries(1925, "county")
+
+map_county <- map_county %>% 
+  st_transform(4326) %>%
+  rename(name_county = name)
+
+# map_county %>% ggplot() + geom_sf()
+
+# 1. Convert the power stations dataframe to an sf object
+df_sf <- df %>% 
+  st_as_sf(coords = c("longitude", "latitude"), crs = 4326)
+
+sf_use_s2(FALSE)
+# 2. Spatial join - associate each power station to a county
+df_join <- st_join(df_sf, map_county)
+sf_use_s2(TRUE)
+
+# 3. Group by county and power station type, and count the number of power stations
+power_station_counts_by_county <- df_join %>%
+  group_by(name_county, source_final) %>%
+  summarise(n = n(), .groups = "drop")
+
+```
+
+```{r}
+
+# 4. make a column plot with number of power stations by county on the x-axis and county codes on the y-axis
+power_station_counts_by_county %>%
+  ggplot(aes(x = n, y = name_county, fill = source_final)) +
+  geom_col(position = "stack") +
+  theme_bw() +
+  theme(legend.position = "right") +
+  labs(title = "Number of power stations by county",
+       subtitle = "The data is based on the data that we have created",
+       caption = "Source:")
+
+power_station_counts_by_county %>% write_rds(here("data", "explainer", "power_station_counts_by_county.rds"))       
+
+# 5. make a facet map where the share of each power station type is shown for each county
+power_station_share_by_county <- power_station_counts_by_county %>%
+  group_by(name_county) %>%
+  mutate(share = n / sum(n)) 
+
+
+power_station_share_by_county %>%
+  ggplot(aes(x = share, y = name_county, fill = source_final)) +
+  geom_col(position = "fill") 
+
+```
+
+
+```{r}
+
+# 6. make a map where the share of 'transmitted' power stations is shown for each county
+power_station_share_by_county %>%
+  filter(source_final == "transmitted") %>%
+  ggplot() +
+  geom_sf(aes(colour = share)) +
+  scale_colour_viridis_c() +
+  theme_bw() +
+  theme(legend.position = "right") +
+  labs(title = "Share of 'transmitted' power stations by county",
+       subtitle = "The data is based on the data that we have created",
+       caption = "Source:")
+
+       
+
+```
+
+What about doing this with the polygons and the dots
+
+```{r}
+sf_use_s2(FALSE)
+# 2. Spatial join - associate each power station to a county
+df_join_polygons <- st_join(map_county, df_sf)
+sf_use_s2(TRUE)
+
+# 3. Group by county and power station type, and count the number of power stations
+power_station_counts_by_county_polygons <- df_join_polygons %>%
+  group_by(name_county, source_final) %>%
+  mutate(n = n(), .groups = "drop")
+
+power_station_share_by_county_polygons <- power_station_counts_by_county_polygons %>%
+  group_by(name_county) %>%
+  mutate(share = n / sum(n)) 
+  
+```
+
+
+```{r}
+power_station_share_by_county_polygons %>%
+  filter(source_final == "water") %>%
+  ggplot() +
+  geom_sf(aes(fill = share)) +
+  scale_colour_viridis_c() +
+  theme_bw() +
+  theme(legend.position = "right") +
+  labs(title = "Share of 'transmitted' power stations by county",
+       subtitle = "The data is based on the data that we have created",
+       caption = "Source:")
+
+```
+
+Power lines?
+
+```{r}
+
+# 7. import the shapefile with the power lines
+
+power_lines <- read_rds(here("data", "shapefiles", "1926_grid.rds"))
+
+
+power_lines %>%
+  ggplot() +
+  geom_sf() +
+  theme_bw() +
+  theme(legend.position = "right") +
+  labs(title = "Power lines",
+       subtitle = "The data is based on the data that we have created",
+       caption = "Source:")
+
+
+```
+
+Boundaries at parish level
+
+```{r}
+
+## New section
+# 1. A map at the parish level that shows share of power from "transmitted" power stations
+map_parish <- get_boundaries(1925, "parish")
+
+map_parish <- map_parish %>% 
+  st_transform(4326) %>%
+  rename(name_parish = name)
+
+# map_parish %>% ggplot() + geom_sf()
+
+
+# 1. Convert the power stations dataframe to an sf object
+df_sf <- df %>% 
+  st_as_sf(coords = c("longitude", "latitude"), crs = 4326)
+
+sf_use_s2(FALSE)
+# 2. Spatial join - associate each power station to a county
+df_join <- st_join(map_parish, df_sf)
+
+# 3. Group by county and power station type, and count the number of power stations
+power_station_counts_by_parish <- df_join %>%
+  group_by(name_parish, source_final) %>%
+  summarise(n = n(), .groups = "drop")
+
+power_station_share_by_parish <- power_station_counts_by_parish %>%
+  group_by(name_parish) %>%
+  mutate(share = n / sum(n)) 
+
+```
+
+Here we plot the share of parishes with power stations of each type
+
+
+```{r}
+
+power_station_share_by_parish %>%
+  filter(source_final == "transmitted") %>%
+  ggplot(aes(fill = share)) +
+  scale_fill_viridis_c() +
+  geom_sf() +
+  theme_bw() +
+  theme(legend.position = "right") +
+  labs(title = "Share of 'transmitted' power stations by parish",
+       subtitle = "The data is based on the data that we have created",
+       caption = "Source:")
+
+```
+
+
+
+```{r}
+
+power_station_share_by_parish %>%
+  filter(source_final == "water") %>%
+  ggplot(aes(fill = share)) +
+  scale_fill_viridis_c() +
+  geom_sf() +
+  theme_bw() +
+  theme(legend.position = "right") +
+  labs(title = "Share of 'water' power stations by parish",
+       subtitle = "The data is based on the data that we have created",
+       caption = "Source:")
+
+```
+
+
+Map of electrified parishes and power stations
+
+```{r}
+
+library(haven)
+electrified_parishes_all <- read_dta(here("data", "replication", "data Figure 2 and Table A2.dta"))
+
+electrified_parishes_all <- electrified_parishes_all %>%
+  distinct(parish_name, parish_code, county_id, iline) %>%
+  mutate(iline = as.factor(iline))
+
+# join elecrified parishes to parish map
+map_parish_electricity_parishes <- map_parish %>%
+    mutate(ref_code = as.numeric(str_remove(ref_code, "SE/"))) %>%
+    inner_join(electrified_parishes_all, by = c("ref_code" = "parish_code"))
+
+# map_parish_electricity_parishes %>% write_rds(here("data", "explainer", "map_parish_electricity_parishes.rds"))
+# df_sf %>% write_rds(here("data", "explainer", "df_sf.rds"))
+
+ggplot() + 
+    geom_sf(aes(fill = iline), data = map_parish_electricity_parishes) +
+    geom_sf(aes(colour = source_final), data = df_sf, alpha = .5) +
+    scale_fill_viridis_d() +
+    facet_wrap(~source_final) +
+    coord_sf()
+
+```
+
+
+What we want to know is if a parish is more likely to be electrified if it has a power station.
+
+The problem I am running into is that in my geocoding, if we didn't know a location, we just put it in the middle of the county. So we should exclude these.
+
+So what I will do to exclude these is count how many places have the same coordinates, and then for the places that have more than e.g. 20 entries at the same coordinates, I will take the 20 with those.
+
+```{r}
+df %>% 
+    count(longitude, latitude, sort = T) %>%
+    filter(n < 20) %>%
+    ggplot(aes(longitude, latitude)) +
+    geom_point() +
+    borders(regions = "sweden")
+
+to_exclude <- df %>% 
+    count(longitude, latitude, sort = T) %>%
+    filter(n > 20) %>% 
+    mutate(comb = str_c(longitude, " ", latitude))
+```
+
+```{r}
+df_filtered <- df %>%
+    mutate(comb = str_c(longitude, " ", latitude)) %>%
+    filter(!comb %in% to_exclude$comb) 
+
+df_filtered_sf <- df_filtered %>% 
+  st_as_sf(coords = c("longitude", "latitude"), crs = 4326)
+```
+
+
+```{r}
+map_parish_electricity_parishes_power_stations <- map_parish_electricity_parishes %>%
+  st_join(df_filtered_sf)
+```
+
+
+
+Now I want to run a regression where I have the share of power stations of each type as the dependent variable and the share of electrified parishes as the independent variable
+
+
+
+```{r}
+
+map_parish_electricity_parishes_power_stations_grouped <- map_parish_electricity_parishes_power_stations %>%
+  group_by(name_parish, source_final) %>%
+  mutate(n = n()) %>%
+  group_by(name_parish) %>%
+  mutate(share = n / sum(n)) %>%
+  ungroup()
+
+```
+
+
+Regress with number of transmitted power stations as dependent variable and share of electrified parishes as independent variable
+
+```{r}
+
+map_parish_electricity_parishes_power_stations_grouped %>% write_rds(here("data", "explainer", "map_parish_electricity_parishes_power_stations_grouped.rds"))
+
+map_parish_electricity_parishes_power_stations_grouped %>%
+    filter(!is.na(source_final)) %>% 
+    distinct() %>%
+    pivot_wider(names_from = "source_final", values_from = "share") %>% 
+    # filter(source_final == "transmitted") %>%
+    lm(transmitted ~ iline, data = .) %>%
+    summary()
+
+
+
+```
+
+
+
+What about if we construct a county level variable for the share of electrified parishes?
+
+```{r}
+
+```

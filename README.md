@@ -66,3 +66,9 @@ project_root/
 2. location
 3. source
 4. amount
+
+
+name: 
+location:
+source:
+amount:

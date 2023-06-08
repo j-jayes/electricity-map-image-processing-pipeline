@@ -11,14 +11,11 @@ with open("config.yml", "r") as f:
 openai.api_key = config["openai"]["key"]
 
 def geocode_location(place, county, geocoded_locations):
-    def remove_json_formatting(text):
-        pattern = r'```json\n(.*)\n```'
-        match = re.search(pattern, text, re.DOTALL)
-        return match.group(1) if match else text
 
     # Check if we have geocoded this location before
-    if place in geocoded_locations:
-        return geocoded_locations[place]
+    key = (place, county)  # Use a tuple (place, county) as a key
+    if key in geocoded_locations:
+        return geocoded_locations[key]
 
     try:
         geocode_prompt = f"What place is this in {county} län Sweden? If you can't find the place, return the place that is most likely based on the letters that have been OCRd. ONLY return RFC 8259 compliant JSON with two keys: 'place_name' and 'description' in a codeblock. The place is: {place}"
@@ -35,9 +32,9 @@ def geocode_location(place, county, geocoded_locations):
         print(content)
 
         if content:
-            content = remove_json_formatting(content)  # Call the function to remove json formatting
+            content = extract_json(content)  # Call the function to remove json formatting
             geocode_input = json.loads(content)
-            geocoded_locations[place] = geocode_input  # Save in cache
+            geocoded_locations[key] = geocode_input  # Save in cache
             return geocode_input
         else:
             raise ValueError('Invalid content: {}'.format(content))
@@ -78,10 +75,13 @@ for i, row in df.iloc[:total_locations].iterrows():
 
 # Save updated geocoded locations to file
 with open(geocoded_locations_file, 'w') as f:
-    json.dump(geocoded_locations, f, ensure_ascii=False, indent=4)
+    json.dump({str(k): v for k, v in geocoded_locations.items()}, f, ensure_ascii=False, indent=4)
 
 df.to_pickle("data/intermediate/single_table/geocoded_locations.pkl")
 
 # open geocoded_locations.pkl and run the following code to get the geocoded locations in a format that can be used in the geocoding notebook
-df = pd.read_pickle("data/intermediate/single_table/geocoded_locations.pkl")
-df["geocode_input"] = df["geocode_input"].apply(lambda x: json.loads(x))
+# df = pd.read_pickle("data/intermediate/single_table/geocoded_locations.pkl")
+# f["geocode_input"] = df["geocode_input"].apply(lambda x: json.loads(x))
+
+
+

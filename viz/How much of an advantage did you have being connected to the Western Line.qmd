@@ -1,0 +1,149 @@
+---
+title: "How much of an advantage did you have being connected to the Western Line?"
+format: html
+execute: 
+  echo: false
+  message: false
+  warning: false
+---
+
+
+```{r}
+library(tidyverse)
+library(sf)
+library(histmaps)
+library(here)
+theme_set(theme_light())
+
+df <- readxl::read_excel((here("data", "intermediate", "single_table", "combined_data_manual_edits_source_amount.xlsx")))
+
+```
+
+
+
+## Context
+
+I have now completed digitized all of the report of the committee on rural electrification in Sweden, led by engineer Nils Ekwall. The reports were published at the county level from 1924 to 1926. 
+
+The reports include a great deal of information on the rate at which the various counties have been successful in electrifying their rural areas. The reports also note how much it will cost to complete the electrification of the county.
+
+At the end of the reports are a set of tables that include information on every power station in the county. The tables include the name of the power station, the name of the owner (be it a city/municpality or a factory owner), the location, the source of power, and the amount of power generated. ^[Some counties include additional information such as the area of the county it electrifies, and how much of the power is used for lighting or dirving motors etc. Because this information is not available for every county, we restrict the variables of interest to those mentioned above.]
+
+This is what the data looks like:
+
+```{r}
+df %>% 
+  select(user, name, location, source_final, amount_final) %>% 
+  slice(3L:13L) %>%
+  knitr::kable()
+```
+
+### Classifying the source of power
+
+The source of power is one of four categories: water, steam, diesel or 'transmitted'. The last category is the most interesting in our current project. It refers to power that is transmitted from another power station. The reports include the name of the power station that is the source of the power.
+
+In the graph below I show the number of power stations in each county and the source of power. 
+
+```{r}
+#| fig-cap: "Number of power stations by county"
+power_station_counts_by_county <- read_rds(here("data", "explainer", "power_station_counts_by_county.rds"))       
+
+power_station_counts_by_county %>%
+    filter(!is.na(name_county)) %>%
+    mutate(name_county = fct_reorder(name_county, n, .fun = "sum")) %>%
+  ggplot(aes(x = n, y = name_county, fill = source_final)) +
+  geom_col(position = "stack") +
+  theme_bw() +
+  scale_fill_brewer(palette = "Dark2") +
+  theme(legend.position = "right") +
+  labs(caption = "Source: Committee on Rural Electrification in Sweden, 1924-1926",
+       y = NULL,
+       x = "Number of power stations",
+       fill = "Power source") 
+
+```
+
+We can also plot them on a map of Sweden, here we show the counties and the western line in Yellow. The Western Line here is taken from *More Power to the People*.
+
+```{r}
+#| fig-cap: "Number of power stations by county"
+#| fig-height: 12
+
+map_parish_electricity_parishes <- read_rds(here("data", "explainer", "map_parish_electricity_parishes.rds"))
+df_sf <- read_rds(here("data", "explainer", "df_sf.rds"))
+
+ggplot() + 
+    geom_sf(aes(fill = iline), data = map_parish_electricity_parishes, size = 0.01) +
+    geom_sf(aes(colour = source_final), data = df_sf, alpha = .5) +
+    scale_fill_viridis_d() +
+    facet_wrap(~source_final) +
+    coord_sf() +
+    labs(caption = "Source: Committee on Rural Electrification in Sweden, 1924-1926",
+         fill = "Western line",
+         colour = "Power source") 
+
+```
+
+Beyond the number of connections, we can also look at the installed capacity. 
+
+Here is a map of installed capacity for all of the power generating stations.
+
+```{r}
+df_sf_filtered <- df_sf %>% 
+    filter(source_final != "transmitted")
+
+ggplot() + 
+    geom_sf(aes(fill = iline), data = map_parish_electricity_parishes, size = 0.01) +
+    geom_sf(aes(colour = source_final, size = amount_final), data = df_sf_filtered, alpha = .5) +
+    scale_fill_viridis_d() +
+    facet_wrap(~source_final) +
+    coord_sf() +
+    labs(caption = "Source: Committee on Rural Electrification in Sweden, 1924-1926",
+         fill = "Western line",
+         colour = "Power source")
+```
+
+Here is the same map, but only showing large power stations. 
+
+I think that the most compelling case here is that along the western line there are a small number of very large hydroelectric power stations, whereas north of this, there are lots of smaller power stations, but transmitting power to other places. I need to come up with a way to turn this into an F-stat greater than 10!
+
+
+```{r}
+
+df_sf_filtered_large <- df_sf %>% 
+    filter(source_final != "transmitted",
+           amount_final > 500)
+
+ggplot() + 
+    geom_sf(aes(fill = iline), data = map_parish_electricity_parishes, size = 0.01) +
+    geom_sf(aes(colour = source_final, size = amount_final), data = df_sf_filtered_large, alpha = .5) +
+    scale_fill_viridis_d() +
+    facet_wrap(~source_final) +
+    coord_sf() +
+    labs(caption = "Source: Committee on Rural Electrification in Sweden, 1924-1926",
+         fill = "Western line",
+         colour = "Power source")
+
+```
+
+
+Because at the moment, my regression has the wrong sign!
+
+```{r}
+#| eval: false
+
+map_parish_electricity_parishes_power_stations_grouped <- read_rds(here("data", "explainer", "map_parish_electricity_parishes_power_stations_grouped.rds"))
+
+map_parish_electricity_parishes_power_stations_grouped %>%
+    filter(!is.na(source_final)) %>% 
+    distinct() %>%
+    pivot_wider(names_from = "source_final", values_from = "share") %>% 
+    lm(transmitted ~ iline, data = .) %>%
+    summary()
+
+```
+
+## How about we define a new set of treated parishes, instead of using the Western Line from *More Power to the People*?
+
+This is the next step.
+
